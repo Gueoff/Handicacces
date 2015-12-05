@@ -28,6 +28,12 @@ public class Website {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Website(String url) {
+		super();
+		this.url = url;
+	}
+	
 	public Website(String url, Collection amenagements) {
 		super();
 		this.url = url;

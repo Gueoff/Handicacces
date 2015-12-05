@@ -47,7 +47,7 @@
       }
     },
     "handicacces.updateWebsite" : {
-      "path" : "website/{nom}/{description}",
+      "path" : "website/{url}/{nom}/{description}",
       "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -56,6 +56,10 @@
       "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.update",
       "request" : {
         "parameters" : {
+          "url" : {
+            "type" : "string",
+            "required" : true
+          },
           "nom" : {
             "type" : "string",
             "required" : true
@@ -65,59 +69,20 @@
             "required" : true
           }
         },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
     },
     "handicacces.createWebsite" : {
-      "path" : "create/{url}",
+      "path" : "create",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.create",
-      "request" : {
-        "parameters" : {
-          "url" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "handicacces.updateLayout" : {
-      "path" : "amenagement",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.updateAmenagement",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "handicacces.createLayout" : {
-      "path" : "createAmenagement",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.createAmenagement",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -147,16 +112,33 @@
         "body" : "empty"
       }
     },
-    "handicacces.listAllWebsites" : {
-      "path" : "website",
-      "httpMethod" : "GET",
+    "handicacces.createLayout" : {
+      "path" : "createAmenagement",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.listWebsites",
+      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.createAmenagement",
       "request" : {
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "handicacces.updateLayout" : {
+      "path" : "amenagement",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.updateAmenagement",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -177,21 +159,15 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "handicacces.listWebsitesByLayout" : {
-      "path" : "websitecollection/{nom_amenagement}",
+    "handicacces.listAllWebsites" : {
+      "path" : "website",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.getWebsites",
+      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.listWebsites",
       "request" : {
-        "parameters" : {
-          "nom_amenagement" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
         "body" : "empty"
       },
       "response" : {
@@ -209,6 +185,27 @@
       "request" : {
         "parameters" : {
           "url" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "handicacces.listWebsitesByLayout" : {
+      "path" : "websitecollection/{nom_amenagement}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "fr.unantes.endpoints.WebsiteEndpoint.getWebsites",
+      "request" : {
+        "parameters" : {
+          "nom_amenagement" : {
             "type" : "string",
             "required" : true
           }
@@ -259,18 +256,6 @@
           }
         }
       },
-      "WebsiteCollection" : {
-        "id" : "WebsiteCollection",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Website"
-            }
-          }
-        }
-      },
       "AmenagementCollection" : {
         "id" : "AmenagementCollection",
         "type" : "object",
@@ -282,12 +267,29 @@
             }
           }
         }
+      },
+      "WebsiteCollection" : {
+        "id" : "WebsiteCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Website"
+            }
+          }
+        }
       }
     },
     "methods" : {
       "fr.unantes.endpoints.WebsiteEndpoint.remove" : {
       },
       "fr.unantes.endpoints.WebsiteEndpoint.update" : {
+        "response" : {
+          "$ref" : "Website"
+        }
+      },
+      "fr.unantes.endpoints.WebsiteEndpoint.create" : {
         "request" : {
           "$ref" : "Website"
         },
@@ -295,12 +297,14 @@
           "$ref" : "Website"
         }
       },
-      "fr.unantes.endpoints.WebsiteEndpoint.create" : {
+      "fr.unantes.endpoints.WebsiteEndpoint.removeAmenagement" : {
+      },
+      "fr.unantes.endpoints.WebsiteEndpoint.createAmenagement" : {
         "request" : {
           "$ref" : "Amenagement"
         },
         "response" : {
-          "$ref" : "Website"
+          "$ref" : "Amenagement"
         }
       },
       "fr.unantes.endpoints.WebsiteEndpoint.updateAmenagement" : {
@@ -311,27 +315,12 @@
           "$ref" : "Amenagement"
         }
       },
-      "fr.unantes.endpoints.WebsiteEndpoint.createAmenagement" : {
-        "request" : {
-          "$ref" : "Amenagement"
-        },
-        "response" : {
-          "$ref" : "Amenagement"
-        }
-      },
-      "fr.unantes.endpoints.WebsiteEndpoint.removeAmenagement" : {
-      },
-      "fr.unantes.endpoints.WebsiteEndpoint.listWebsites" : {
-        "response" : {
-          "$ref" : "WebsiteCollection"
-        }
-      },
       "fr.unantes.endpoints.WebsiteEndpoint.listAmenagements" : {
         "response" : {
           "$ref" : "AmenagementCollection"
         }
       },
-      "fr.unantes.endpoints.WebsiteEndpoint.getWebsites" : {
+      "fr.unantes.endpoints.WebsiteEndpoint.listWebsites" : {
         "response" : {
           "$ref" : "WebsiteCollection"
         }
@@ -339,6 +328,11 @@
       "fr.unantes.endpoints.WebsiteEndpoint.getWebsite" : {
         "response" : {
           "$ref" : "Website"
+        }
+      },
+      "fr.unantes.endpoints.WebsiteEndpoint.getWebsites" : {
+        "response" : {
+          "$ref" : "WebsiteCollection"
         }
       }
     }

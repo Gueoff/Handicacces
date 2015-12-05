@@ -7,7 +7,6 @@ import com.google.api.server.spi.response.BadRequestException;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.datanucleus.query.JDOCursorHelper;
 import com.googlecode.objectify.NotFoundException;
 
 import fr.unantes.beans.Amenagement;
@@ -80,17 +79,14 @@ public class WebsiteEndpoint {
 	 
 	 
 	 @ApiMethod(name = "CreateWebsite", httpMethod = ApiMethod.HttpMethod.POST)
-	 public Website create(@Named("url")String url, Amenagement amenagement) {
-		 Website website = new Website();
-		 website.setUrl(url);
-		 website.renseigner(amenagement);
+	 public Website create(Website website) {
 		 return WebsiteRepository.getInstance().create(website);
 	 }
 	 
 	 
 	 @ApiMethod(name = "UpdateWebsite", httpMethod = ApiMethod.HttpMethod.PUT)
-	 public Website update(Website website, @Named("nom")String nom, @Named("description")String description){
-		 return WebsiteRepository.getInstance().renseigner(website, nom, description);
+	 public Website update(@Named("url") String url, @Named("nom")String nom, @Named("description")String description){ 
+		 return WebsiteRepository.getInstance().renseigner(url, nom, description);
 	 }
 	 
 	 @ApiMethod(name = "RemoveWebsite", httpMethod = ApiMethod.HttpMethod.DELETE)

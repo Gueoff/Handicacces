@@ -1,27 +1,135 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
-
-<html>
+<!DOCTYPE html>
+<html lang="fr" ng-app='app.search'>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	
+  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	  <script type="text/javascript" src="form.js"></script>
+
+    <title>Handicacces</title>
+
+    <!-- Bootstrap -->
+	<link href="bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet">
+    <!-- My style -->
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
 
   <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="handicacces">Handicacces</a></td>
-      </tr>
-    </table>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <!-- <span class="icon-bar"></span> -->
+          </button>
+          <a class="navbar-brand" href="#">Handicacces</a>
+        </div>
+        
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="http://handicacces.appspot.com">Accueil</a></li>
+            <!-- <li><a href="#about">About</a></li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+        
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h1 class="col-md-12">HANDICACCES</h1>
+      </div>
+      
+      <div class="row">
+        <h2 class="col-md-12">un moteur de recherche spécialisé pour le handicap</h2>
+      </div>
+      
+        <form class="row" ng-controller="ResultController as resultat">
+        <div class="col-md-12">
+            <p>
+	            <input type="text" id="motclef" name="p1" size=20 style="width: 400px; height: 35px;" ng-model="p1"/>
+	            <!-- <input type="submit" value="Submit" ng-click="affresult()" /> -->
+	            <input type="submit" class="btn btn-md btn-primary" value="Rechercher" ng-click="affresult()" />
+            </p>   
+       	</div> 
+     
+		<button ng-show="item" class="btn btn-md btn-primary" ng-click="lastpage()">page precedente</button>
+		<button ng-show="item" class="btn btn-md btn-primary" ng-click="nextpage()">page suivante</button>
+	   
+       <div class="row" ng-repeat="result in item">
+	   
+		        <h3>{{result.htmlTitle}}</h3>
+		        <a ng-href="{{result.link}}">{{result.displayLink}}</a>
+<!-- 		        <h2>{{result.url}}</h2> -->
+		        <p>{{result.snippet}}</p>
+		        <p>infos en plus:</p>
+		        
+		        
+		        <!-- -------------------------------------------------------------------------- -->
+		        <div class="annotations" >
+		        	<ul>
+		        		<li ng-repeat="info in result.resp.equipement">{{info.nom}}</li>
+		       			<li>
+							<div ng-class="{active:resultat.isSelected(result)}"> 
+								<a href ng-click="resultat.selectTab(result)" class="ajout"><img src="images/add.png" class="add_more"></a> 
+							</div>
+					
+							<!-- Le formulaire de renseignements -->
+							<div id="plugin" ng-show="resultat.isSelected(result)">
+								<header>
+									<p id="description">Quels sont les aménagements prévus pour les handicapés?</p>
+									<img src="images/logo.png" id="logo"> </header>
+								<ul id="formulaire" >
+									<form>
+										<li ng-repeat="amenagement in resultat.amenagements">
+											<input type="checkbox" ng-model="amenagement.checked">
+											<span ng-model="amenagement.nom">{{amenagement.nom}}</span> <a href="" class="help" title="{{amenagement.description}}">?</a> </li>
+										<li>
+											<input type="submit" name="Submit" value="Valider" id="valider" ng-click="renseigner(result,resultat.amenagements)">
+										</li>
+									</form>
+								</ul>
+							</div>
+							<!-- Fin du formulaire de renseignement --> 
+					
+						</li>
+					</ul>
+		        </div>
+	        	<!-- -------------------------------------------------------------------------- -->
+<!-- 	        <div ng-repeat="result in item"> -->
+<!-- 		        <h1>{{result.titleNoFormatting}}</h1> -->
+<!-- 		        <a ng-href="{{result.unescapedUrl}}">{{result.unescapedUrl}}</a> -->
+<!-- 		        <h2>{{result.url}}</h2> -->
+<!-- 		        <p>{{result.content}}</p> -->
+	        </div>
+	        
+       </form>
+       
+       <!-- 
+        <footer class="row">
+	  	<p class="col-md-12">&copy Copyright 2015 - Projet Master ALMA</p>
+	  </footer>
+	   -->
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
   </body>
 </html>
