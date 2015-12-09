@@ -6,7 +6,7 @@ import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
-import fr.unantes.beans.Amenagement;
+import fr.unantes.beans.Layout;
 import fr.unantes.beans.Website;
  
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -19,7 +19,7 @@ public class WebsiteRepository {
 	 
 	 static {
 	  ObjectifyService.register(Website.class);
-	  ObjectifyService.register(Amenagement.class);
+	  ObjectifyService.register(Layout.class);
 	 }
 	 
 	 private WebsiteRepository() {
@@ -39,8 +39,8 @@ public class WebsiteRepository {
 	 }
 	 
 	 //Retourne tous les sites web qui possède un aménagement particulier
-	 public List<Website> findWebsitesByAmenagements(String nomAmenagement) {
-		 List<Website> websites = ofy().load().type(Website.class).filter("amenagement", nomAmenagement).list();
+	 public List<Website> findWebsitesByAmenagements(int id_layout) {
+		 List<Website> websites = ofy().load().type(Website.class).filter("layout", id_layout).list();
 	     return websites;
 	    }
 	 
@@ -52,47 +52,26 @@ public class WebsiteRepository {
 
 	 //Crée un site web
 	 public Website create(Website website) {
-		/*	JSONObject json = null;
-			StringBuilder builder = new StringBuilder();
-			try {
-				json = new JSONObject(builder.toString());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-			}
-		 
-		 JSONArray amenagements = new JSONArray();
-		 try{
-			 JSONObject val1 = new JSONObject();
-				val1.put("nom", "assensseur3");
-				val1.put("descr", "ce batiment est equip� d'un assensseur3");
-				amenagements.put(val1);
-				
-				
-			 JSONObject amenagement = (JSONObject) json.optJSONArray("items").get(3);
-				o44.put("equipement", o4);
-				four.put("resp", o44);
-		 }
-		 catch(JSONException e){
-			 e.getMessage();
-		 }
-		 
-		 */
-		// ofy().save().entity(website).now();
+
+		 ofy().save().entity(website).now();
 		 return website;
 	 }
 	 
 	 
 	 //Update le site web et lui ajoute un amenagement
-	 public Website renseigner(String url, String nom_amenagement, String description_amenagement){
-		 Website editedWebsite = new Website(url);
+	 public Website update(String url, int id_layout){
+		 Website editedWebsite = new Website();
+
 		 if (editedWebsite.getUrl() == null) {
 			   return null;
 		}
-		 Amenagement amenagement = new Amenagement(nom_amenagement, description_amenagement);
-		// editedWebsite.renseigner(amenagement);
-			 
+		 /*
+		 Layout layout = new Layout();
+		 layout.setDescription(layoutDescription);
+		 layout.setName(layoutName);
+		*/	 
 		Website website = ofy().load().key(Key.create(Website.class, editedWebsite.getUrl())).now();
+		website.getLayouts().add(id_layout);
 		ofy().save().entity(website).now();
 			 
 		 return website;

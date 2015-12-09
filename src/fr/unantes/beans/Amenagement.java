@@ -4,7 +4,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 @Entity
-public class Amenagement {
+public class Amenagement {/*
 
 	@Id
 	private Long id;
@@ -45,6 +45,6 @@ public class Amenagement {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+	*/
 	
 }

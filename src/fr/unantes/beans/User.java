@@ -1,36 +1,68 @@
 package fr.unantes.beans;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
+import com.google.appengine.api.datastore.Key;
 
-@Entity
+import javax.jdo.annotations.*;
+
+/**
+ * 
+ * @author Geof
+ *
+ */
+//@PersistenceCapable
 public class User {
+/*
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Long id;
 
-	@Id
-	private Long id;
-	private String nom;
+    @Persistent
+    @Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
+    private String name;
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public User(Long id, String nom) {
-		super();
-		this.id = id;
-		this.nom = nom;
-	}
-	public Long getId() {
+    @Persistent
+    @Extension(vendorName="datanucleus", key="gae.unindexed", value="true")
+    private String email;
+
+
+    public User() {
+    }
+
+    
+
+    public Long getId() {
 		return id;
 	}
+
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNom() {
-		return nom;
+
+
+
+	public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+
+	public String getEmail() {
+		return email;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	
+
+
+*/
+
 }

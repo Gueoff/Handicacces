@@ -10,7 +10,7 @@ import com.googlecode.objectify.ObjectifyService;
 import fr.unantes.beans.Amenagement;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-public class AmenagementRepository {
+public class AmenagementRepository {/*
 	private static AmenagementRepository amenagementRepository = null;
 	 
 	 static {
@@ -55,5 +55,5 @@ public class AmenagementRepository {
 	   return;
 	  }
 	  ofy().delete().type(Amenagement.class).id(id).now();
-	 }
+	 }*/
 }
